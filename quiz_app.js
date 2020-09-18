@@ -51,16 +51,58 @@ var questions = [q1,q2,q3];
 
 var quiz = new Quiz(questions);
 
-console.log(quiz.isFinish());
+// console.log(quiz.isFinish());
 
-console.log(quiz.getQuestions());
-quiz.guess('javaScript');
+// console.log(quiz.getQuestions());
+// quiz.guess('javaScript');
 
-console.log(quiz.getQuestions());
-quiz.guess('javaScript');
+// console.log(quiz.getQuestions());
+// quiz.guess('javaScript');
 
-console.log(quiz.getQuestions());
-quiz.guess('javaScript');
+// console.log(quiz.getQuestions());
+// quiz.guess('javaScript');
 
-console.log(quiz.score); // 3. all questions are true
-console.log(quiz.isFinish());
+// console.log(quiz.score); // 3. all questions are true
+// console.log(quiz.isFinish());
+
+loadQuestions();
+
+function loadQuestions(){
+  if(quiz.isFinish()){
+    showScore();
+  }
+  else{
+    var question = quiz.getQuestions();
+    var choices = question.choices;
+
+    document.querySelector('#question').textContent = question.text;
+
+    for (var i=0;i < choices.length;i++){
+      var element = document.querySelector('#choice'+i);
+      element.innerHTML= choices[i];
+      guess('btn'+i,choices[i]);
+    }
+
+    showProgress();
+  }
+}
+
+function guess (id,guess){
+  var btn = document.getElementById(id);
+  btn.onclick = function (){
+    quiz.guess(guess);
+    loadQuestions();
+  }
+}
+
+function showScore (){
+  punkt = quiz.score*10;
+  var html = `<h2>Score</h2><h4>${punkt}</h4>`;
+  document.querySelector('.card-body').innerHTML=html;
+}
+
+function showProgress(){
+  var totalQuestion = quiz.questions.length;
+  var questionNumber = quiz.questionIndex+1;
+  document.querySelector('#progress').innerHTML = 'Question '+questionNumber+' of '+totalQuestion;
+}
