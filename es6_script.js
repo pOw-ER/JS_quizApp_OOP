@@ -48,4 +48,17 @@ let evenES6_2 = arr.filter(a=>a%2==1);
 console.log(evenES6_2);
 
 
-//
+// spread operator
+
+function getTotal(a,b,c,d){
+  return a+b+c+d;
+}
+
+let numbers =[10,20,30,40];
+console.log(getTotal(...numbers));
+
+let arr1 = ['two','three'];
+let arr2 = ['one','four','five'];
+
+arr1.push(...arr2);
+console.log(arr1);
